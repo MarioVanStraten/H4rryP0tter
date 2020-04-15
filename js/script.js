@@ -110,6 +110,22 @@ const checkIfHouseComplete = () => {
     }
 }
 
+// Track time elapsed function
+const timeHistory = []
+let time
+let timer
+const trackTime = (command) => {
+    if(command === 'start'){
+        time = 0
+        timer = window.setInterval(() => { time++ },1000)
+    } else if (command === 'stop'){
+        timeHistory.push(time)
+        clearInterval(timer)
+        let fastestTime = Math.min(...timeHistory)
+        return fastestTime
+    }
+}
+
 // Collect elements
 const gameScreen = document.querySelector('#gameScreen')
 const gamePlayButton = document.querySelector('#gamePlayButton')
@@ -119,7 +135,7 @@ const gameScreenButton = document.querySelector('.fullScreen')
 const gryffindor = document.querySelector('#Gryffindor')
 const slytherin = document.querySelector('#Slytherin')
 
-// Strat game function
+// Start game function
 const startGame = () => {
     // Set game start text
     gameText.innerHTML = 'All characters are lost!<br> Help them and place each character in the correct house.'
@@ -133,6 +149,8 @@ const startGame = () => {
         gameScreen.classList.add('transition-out')
         // Start background music
         themeSong.play()
+        // Strat game timer function
+        trackTime('start')
     })
 }
 
@@ -140,8 +158,10 @@ const startGame = () => {
 const endGame = () => {
     // Play chime sound
     chimes.play()
+    // Stop game timer function
+    let displyTime = trackTime('stop')
     // Set game end text
-    gameText.innerHTML = 'Well done!<br> You have placed the correct charaters in there houses.<br> Wanna play again?'
+    gameText.innerHTML = `Well done!<br> You have placed the correct charaters in there houses.<br> Your fastest time is ${displyTime} seconds. Wanna play again?`
     // Set new game button text
     gamePlayButton.innerHTML = 'Play Again'
     // Transition game end screen
