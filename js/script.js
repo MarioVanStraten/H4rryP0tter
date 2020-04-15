@@ -159,9 +159,9 @@ const endGame = () => {
     // Play chime sound
     chimes.play()
     // Stop game timer function
-    let displyTime = trackTime('stop')
+    let displayTime = trackTime('stop')
     // Set game end text
-    gameText.innerHTML = `Well done!<br> You have placed the correct charaters in there houses.<br> Your fastest time is ${displyTime} seconds. Wanna play again?`
+    gameText.innerHTML = `Well done!<br> You have placed the correct charaters in there houses.<br> Your fastest time is ${displayTime} seconds. Wanna play again?`
     // Set new game button text
     gamePlayButton.innerHTML = 'Play Again'
     // Transition game end screen
